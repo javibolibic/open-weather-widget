@@ -1,3 +1,7 @@
+## [0.0.3] - 2021-07-31
+ 
+* Updated Readme
+
 ## [0.0.2] - 2021-07-31
  
 * Updated Package Description
