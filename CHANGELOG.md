@@ -1,4 +1,4 @@
-## [0.0.1] - 2021-07-31
+## [0.0.2] - 2021-07-31
  
 * Updated Package Description
 
