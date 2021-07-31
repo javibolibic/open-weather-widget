@@ -1,14 +1,60 @@
-# open_weather_widget
+# Open Weather Widget
 
-A new Flutter package project.
+A Flutter package that provides an easy-to-use weather widget powered by **Open Weather Map.**
 
-## Getting Started
+![Open Weather Widget](https://imgur.com/uAL8mp0.png)
+# Features
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+ - Fully Customizable Weather Widget
+ - 8 Day Weather Forecast
+ - Wind Speed
+ - Humidity
+ - Temperature
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## Usage
+
+ - Simply add the required parameters - **latitude, longitude, location
+   and apiKey**
+   
+>   OpenWeatherWidget(
+>    latitude:  22.550460,
+>    longitude:  88.347311,
+>    location:  "Kolkata",
+>    height:  180,
+>    apiKey: apiKey,
+>    alignment:  MainAxisAlignment.center,
+>    margin:  EdgeInsets.all(5),
+>    ),
+    
+
+## Parameters
+
+| Name | Description |
+|--|--|
+| latitude | Latitude of place *double* |
+| longitude| Longitude of place *double* |
+| apiKey | Your OpenWeatherMap Api Key *String*|
+| height | Adjust Widget Height |
+| width | Adjust Widget Width |
+| color | Widget Background Color |
+| borderRadius | Border radius  |
+| margin | Add Custom Margin |
+| padding | Add Custom Padding |
+| activeColor| Change color of selected day |
+| activeBorderRadius | Change border radius of selected day |
+| alignment | Adjust MainAxisAlignment for the widget|
+| locationColor | Change textcolor of location |
+| temperatureColor | Change textcolor of temperature |
+| weatherTextColor | Change textcolor of weather text |
+| locationTextStyle | Change textstyle for location text |
+| weatherDetailsTextStyle | Change textstyle for location text |
+| temperatureTextStyle | Change textstyle for location text |
+| weekdayTextStyle| Change textstyle for weekday text |
+| maxTemperatureTextStyle| Change textstyle for max temperature text |
+| minTemperatureTextStyle|Change textstyle for min temperature text  |
+| temperatureScaleTextStyle| Change textstyle for Scale(Celsius) text |
+
+
+## Support Me!
+
+[Buy me a coffee!](https://www.buymeacoffee.com/vineet.upadhyay)

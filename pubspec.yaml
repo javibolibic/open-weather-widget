@@ -1,7 +1,8 @@
 name: open_weather_widget
 description: A new Flutter package project.
 version: 0.0.1
-homepage: null
+author: Vineet Upadhyay<uvineet53@gmail.com>
+homepage: https://github.com/uvineet53/open-weather-widget
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
