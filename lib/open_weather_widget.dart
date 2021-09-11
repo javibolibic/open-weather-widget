@@ -22,6 +22,7 @@ class OpenWeatherWidget extends StatefulWidget {
       this.borderRadius,
       this.weatherTextColor,
       this.activeColor,
+      this.iconColor,
       this.activeBorderRadius,
       this.locationTextStyle,
       this.weatherDetailsTextStyle,
@@ -46,6 +47,7 @@ class OpenWeatherWidget extends StatefulWidget {
   final BorderRadiusGeometry? borderRadius;
   final Color? weatherTextColor;
   final Color? activeColor;
+  final Color? iconColor;
   final BorderRadiusGeometry? activeBorderRadius;
   final TextStyle? locationTextStyle;
   final TextStyle? weatherDetailsTextStyle;
@@ -63,9 +65,10 @@ class _OpenWeatherWidgetState extends State<OpenWeatherWidget> {
   void initState() {
     super.initState();
     weatherBloc.getWeather(
-        latitude: widget.latitude,
-        longitude: widget.longitude,
-        apiKey: widget.apiKey);
+      latitude: widget.latitude,
+      longitude: widget.longitude,
+      apiKey: widget.apiKey,
+    );
   }
 
   @override
@@ -84,6 +87,7 @@ class _OpenWeatherWidgetState extends State<OpenWeatherWidget> {
       locationColor: widget.locationColor,
       temperatureColor: widget.temperatureColor,
       weatherTextColor: widget.weatherTextColor,
+      iconColor: widget.iconColor,
       borderRadius: widget.borderRadius,
       temperatureScaleTextStyle: widget.temperatureScaleTextStyle,
       temperatureTextStyle: widget.temperatureTextStyle,
