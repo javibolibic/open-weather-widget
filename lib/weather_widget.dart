@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:open_weather_widget/weather_helper.dart';
 import 'package:open_weather_widget/weather_model.dart';
+import 'package:weather_icons/weather_icons.dart';
 import './string_utils.dart';
 
 class WeatherWidget extends StatefulWidget {
@@ -20,6 +21,7 @@ class WeatherWidget extends StatefulWidget {
     this.borderRadius,
     this.weatherTextColor,
     this.activeColor,
+    this.iconColor,
     this.activeBorderRadius,
     this.locationTextStyle,
     this.weatherDetailsTextStyle,
@@ -45,6 +47,7 @@ class WeatherWidget extends StatefulWidget {
   final BorderRadiusGeometry? borderRadius;
   final Color? weatherTextColor;
   final Color? activeColor;
+  final Color? iconColor;
   final BorderRadiusGeometry? activeBorderRadius;
   final TextStyle? locationTextStyle;
   final TextStyle? weatherDetailsTextStyle;
@@ -70,12 +73,9 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             WeatherModel? data = snapshot.data as WeatherModel;
             todayTemp = data.current.temp.toString();
             return Container(
-              height: widget.height == null || widget.height! < 180
-                  ? 180
-                  : widget.height,
+              height: widget.height == null || widget.height! < 180 ? 180 : widget.height,
               width: widget.width ?? MediaQuery.of(context).size.width,
-              padding: widget.padding ??
-                  EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               margin: widget.margin ?? EdgeInsets.all(0),
               decoration: BoxDecoration(
                 color: widget.color ?? Colors.white,
@@ -96,37 +96,32 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                             style: widget.locationTextStyle ??
                                 TextStyle(
                                   fontSize: 23,
-                                  color:
-                                      widget.locationColor ?? Colors.grey[800],
+                                  color: widget.locationColor ?? Colors.grey[800],
                                 ),
                           ),
                           humidityAndWind(snapshot.data, index),
                         ],
                       ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${currentTemp!.substring(0, 2) == "25" ? data.current.temp.toString().substring(0, 2) : currentTemp!.substring(0, 2)}",
-                              style: widget.temperatureTextStyle ??
-                                  TextStyle(
-                                      fontSize: 59,
-                                      color: widget.temperatureColor ??
-                                          Colors.grey[700],
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: "Poppin",
-                                      height: 1),
-                            ),
-                            Text(
-                              "°C",
-                              style: widget.temperatureScaleTextStyle ??
-                                  TextStyle(
-                                    fontSize: 15,
-                                    color: widget.temperatureColor ??
-                                        Colors.grey[700],
-                                  ),
-                            ),
-                          ]),
+                      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Text(
+                          "${currentTemp!.substring(0, 2) == "25" ? data.current.temp.toString().substring(0, 2) : currentTemp!.substring(0, 2)}",
+                          style: widget.temperatureTextStyle ??
+                              TextStyle(
+                                  fontSize: 59,
+                                  color: widget.temperatureColor ?? Colors.grey[700],
+                                  fontWeight: FontWeight.w300,
+                                  fontFamily: "Poppin",
+                                  height: 1),
+                        ),
+                        Text(
+                          "°C",
+                          style: widget.temperatureScaleTextStyle ??
+                              TextStyle(
+                                fontSize: 15,
+                                color: widget.temperatureColor ?? Colors.grey[700],
+                              ),
+                        ),
+                      ]),
                     ],
                   ),
                   const SizedBox(
@@ -150,24 +145,18 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         itemCount: weather!.daily.length,
         itemBuilder: (context, index) {
           var data = weather.daily;
-          bool currentDay = DateFormat('yyyy-MM-dd').format(
-                  DateTime.fromMillisecondsSinceEpoch(data[index].dt * 1000)) ==
+          bool currentDay = DateFormat('yyyy-MM-dd').format(DateTime.fromMillisecondsSinceEpoch(data[index].dt * 1000)) ==
               DateFormat('yyyy-MM-dd').format(DateTime.now());
           return _columnBuilder(
             index: index,
             day: currentDay
                 ? "Today"
-                : DateFormat('EEEE')
-                    .format(DateTime.fromMillisecondsSinceEpoch(
-                        data[index].dt * 1000))
-                    .substring(0, 3),
+                : DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(data[index].dt * 1000)).substring(0, 3),
             max: data[index].temp.max.toString().substring(0, 2),
             min: data[index].temp.min.toString().substring(0, 2),
-            main: data[index].weather[0].main,
+            weatherId: data[index].weather[0].id,
             isToday: currentDay ? true : false,
-            current: currentDay
-                ? todayTemp
-                : data[index].temp.max.toString().substring(0, 2),
+            current: currentDay ? todayTemp : data[index].temp.max.toString().substring(0, 2),
           );
         },
       ),
@@ -197,15 +186,8 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     );
   }
 
-  Widget _columnBuilder(
-      {int? index,
-      String? day,
-      String? max,
-      String? min,
-      String? main,
-      bool? isToday,
-      String? current}) {
-    String iconData = weatherIcon(main!.toLowerCase());
+  Widget _columnBuilder({int? index, String? day, String? max, String? min, int? weatherId, bool? isToday, String? current}) {
+    IconData iconData = weatherIcon(weatherId);
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -220,8 +202,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           decoration: this.index == index
               ? BoxDecoration(
                   color: widget.activeColor ?? Colors.grey[100],
-                  borderRadius:
-                      widget.activeBorderRadius ?? BorderRadius.circular(5))
+                  borderRadius: widget.activeBorderRadius ?? BorderRadius.circular(5))
               : null,
           child: Column(
             children: [
@@ -234,9 +215,9 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                       color: widget.weatherTextColor ?? Colors.black,
                     ),
               ),
-              Image.network(
+              BoxedIcon(
                 iconData,
-                height: 32,
+                color: widget.iconColor ?? Colors.black,
               ),
               RichText(
                   text: TextSpan(children: [
