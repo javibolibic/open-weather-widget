@@ -11,6 +11,7 @@ class OpenWeatherWidget extends StatefulWidget {
       required this.longitude,
       required this.location,
       required this.apiKey,
+        this.language,
       this.height,
       this.width,
       this.padding,
@@ -38,6 +39,7 @@ class OpenWeatherWidget extends StatefulWidget {
   final double? height;
   final double? width;
   final String apiKey;
+  final String? language;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final MainAxisAlignment? alignment;
@@ -67,6 +69,7 @@ class _OpenWeatherWidgetState extends State<OpenWeatherWidget> {
     weatherBloc.getWeather(
       latitude: widget.latitude,
       longitude: widget.longitude,
+      language: widget.language ?? 'en',
       apiKey: widget.apiKey,
     );
   }

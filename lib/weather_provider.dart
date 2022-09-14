@@ -8,9 +8,10 @@ class WeatherApiProvider {
   Future<WeatherModel?> getWeather(
       {required double latitude,
       required double longitude,
+      String language = 'en',
       required String apiKey}) async {
     _endpoint =
-        "https://api.openweathermap.org/data/2.5/onecall?lat=$latitude&lon=$longitude&exclude=hourly,minutely,alerts&appid=$apiKey&units=metric";
+        "https://api.openweathermap.org/data/2.5/onecall?lat=$latitude&lon=$longitude&exclude=hourly,minutely,alerts&appid=$apiKey&units=metric&lang=$language";
     try {
       Response response = await _dio.get(_endpoint);
       return WeatherModel.fromJson(response.data);

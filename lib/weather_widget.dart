@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:open_weather_widget/weather_helper.dart';
 import 'package:open_weather_widget/weather_model.dart';
 import 'package:weather_icons/weather_icons.dart';
-import './string_utils.dart';
+import 'string_utils.dart';
 
 class WeatherWidget extends StatefulWidget {
   const WeatherWidget({
