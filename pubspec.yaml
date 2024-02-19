@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^4.0.0
+  dio: ^5.4.1
   intl: ^0.18.0
   rxdart: ^0.27.1
   weather_icons: ^3.0.0
