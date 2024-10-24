@@ -11,7 +11,7 @@ class WeatherApiProvider {
       String language = 'en',
       required String apiKey}) async {
     _endpoint =
-        "https://api.openweathermap.org/data/2.5/onecall?lat=$latitude&lon=$longitude&exclude=hourly,minutely,alerts&appid=$apiKey&units=metric&lang=$language";
+        "https://api.openweathermap.org/data/3.0/onecall?lat=$latitude&lon=$longitude&exclude=hourly,minutely,alerts&appid=$apiKey&units=metric&lang=$language";
     try {
       Response response = await _dio.get(_endpoint);
       return WeatherModel.fromJson(response.data);
